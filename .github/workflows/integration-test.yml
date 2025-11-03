@@ -123,6 +123,7 @@ jobs:
         run: rm -rf apt-cache/* && sudo mv -f /var/cache/apt-cacher-ng/* apt-cache/
 
       - name: List working directory
+        if: always()
         run: tree 
       
       - name: Upload pi-gen/deploy artifact
