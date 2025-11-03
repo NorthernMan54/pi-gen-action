@@ -125,6 +125,9 @@ jobs:
         with:
           name: pi-gen-deploy-${{ matrix.pi_gen_version }}
           path: pi-gen/deploy/**
+          retention-days: 7
+          if-no-files-found: ignore
+          overwrite: true
 
       - name: Uncompress image and mount loopback device
         run: |
