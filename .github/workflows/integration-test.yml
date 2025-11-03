@@ -46,6 +46,13 @@ env:
 jobs:
 
   integration-test:
+    name: Integration Test ${{ matrix.pi_gen_version }}
+    strategy:
+      matrix:
+        pi_gen_version: [master, arm64]
+      fail-fast: false
+      max-parallel: 1
+      
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'test')
 
@@ -104,6 +111,7 @@ jobs:
           apt-proxy: http://172.17.0.1:9999
           temp-repo: deb [arch=amd64 trusted=yes] https://deb.nodesource.com/node_24.x nodistro main
           enable-cloud-init: 0
+          pi-gen-version: ${{ matrix.pi_gen_version }}
 
       - name: Move APT cache
         continue-on-error: true
@@ -112,6 +120,12 @@ jobs:
       - name: List working directory
         run: tree 
       
+      - name: Upload pi-gen/deploy artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pi-gen-deploy-${{ matrix.pi_gen_version }}
+          path: pi-gen/deploy/**
+
       - name: Uncompress image and mount loopback device
         run: |
           set -ex
@@ -147,6 +161,6 @@ jobs:
         run: |
           sudo tail -n 100 /etc/apt-cacher-ng/acng.conf
           sudo service apt-cacher-ng status
-          sudo tail -n 200 /var/log/syslog /var/log/apt-cacher-ng/* 
+          sudo tail -n 200 /var/log/syslog /var/log/apt-cacher-ng/*
 
-          
+
