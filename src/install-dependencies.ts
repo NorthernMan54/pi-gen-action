@@ -20,8 +20,6 @@ export async function installHostDependencies(
     const installPackages = [
       ...new Set([
         ...hostDependencies.packages,
-        'debian-archive-keyring',
-        'raspbian-archive-keyring',
         ...packages.split(/[\s,]/),
         ...piGenDependencies
       ])
