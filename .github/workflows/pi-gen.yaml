@@ -40,7 +40,7 @@ jobs:
           } &&
           chmod +x clean-stage/prerun.sh
 
-      - uses: ./
+      - uses: ../
         id: build
         with:
           image-name: test
