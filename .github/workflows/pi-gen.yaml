@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies and build
         run: |
           npm ci
-          npm run build
+          npm run package
 
       - run: |
           mkdir -p test-stage/package-test &&
