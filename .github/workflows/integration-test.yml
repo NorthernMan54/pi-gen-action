@@ -116,7 +116,7 @@ jobs:
           temp-repo: deb [arch=amd64 trusted=yes] https://deb.nodesource.com/node_24.x nodistro main
           enable-cloud-init: 0
           pi-gen-version: ${{ matrix.pi_gen_version }}
-          pi-gen-repository: NorthernMan54/pi-gen
+          # pi-gen-repository: NorthernMan54/pi-gen
 
       - name: Move APT cache
         continue-on-error: true
